@@ -10,7 +10,7 @@ const timerText = document.querySelector(".time span b");
 
 let selectedword, timer;
 
-const initTime = (maxTime) => {
+const timeLeft = (maxTime) => {
   clearInterval(timer);
   timer = setInterval(() => {
     if (maxTime > 0) {
@@ -19,14 +19,14 @@ const initTime = (maxTime) => {
     } else {
       clearInterval(timer);
       alert(`Time's up! The correct word was "${selectedword}"`);
-      initGame();
+      startGame();
     }
   }, 1000);
 };
 
-const initGame = () => {
+const startGame = () => {
   clearInterval(timer);
-  initTime(30);
+  timeLeft(30);
   const randomObj = words[Math.floor(Math.random() * words.length)];
   selectedword = String(randomObj.word);
   const hint = randomObj.hint;
@@ -49,9 +49,9 @@ const checkWord = () => {
     return alert(`Oops, "${userWord}" is incorrect`);
   }
   alert(`Congratulations! "${userWord}" is correct`);
-  initGame();
+  startGame();
 };
 
 checkBtn.addEventListener("click", checkWord);
-refreshBtn.addEventListener("click", initGame);
-initGame();
+refreshBtn.addEventListener("click", startGame);
+startGame();
